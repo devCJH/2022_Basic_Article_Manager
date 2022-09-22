@@ -6,49 +6,53 @@ import java.util.Scanner;
 import com.koreaIT.java.BAM.dto.Member;
 import com.koreaIT.java.BAM.util.Util;
 
-public class MemberController {
+public class MemberController extends Controller {
 	List<Member> members;
 	Scanner sc;
+	String cmd;
 
 	public MemberController(List<Member> members, Scanner sc) {
 		this.members = members;
 		this.sc = sc;
 	}
+	
+	@Override
+	public void doAction(String cmd) {
+		this.cmd = cmd;
+	}
 
 	public void doJoin() {
 		int id = members.size() + 1;
 		String regDate = Util.getNowDateStr();
-		
+
 		String loginId = null;
-		while(true) {
+		while (true) {
 			System.out.printf("로그인 아이디 : ");
 			loginId = sc.nextLine();
-			
-			if(loginIdChk(loginId) == false) {
+
+			if (loginIdChk(loginId) == false) {
 				System.out.printf("%s은(는) 이미 사용중인 아이디입니다\n", loginId);
 				continue;
 			}
 			System.out.printf("%s은(는) 사용가능한 아이디입니다\n", loginId);
 			break;
 		}
-		
-		
+
 		String loginPw = null;
 		String loginPwChk = null;
-		while(true) {
+		while (true) {
 			System.out.printf("로그인 비밀번호 : ");
 			loginPw = sc.nextLine();
 			System.out.printf("비밀번호 확인 : ");
 			loginPwChk = sc.nextLine();
-			
-			if(loginPw.equals(loginPwChk) == false) {
+
+			if (loginPw.equals(loginPwChk) == false) {
 				System.out.println("비밀번호를 다시 입력해주세요");
 				continue;
 			}
 			break;
 		}
-		
-		
+
 		System.out.printf("이름 : ");
 		String name = sc.nextLine();
 
@@ -61,11 +65,11 @@ public class MemberController {
 
 	private boolean loginIdChk(String loginId) {
 		int index = getMemberIndexByLoginId(loginId);
-		
-		if(index == -1) {
+
+		if (index == -1) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -80,5 +84,5 @@ public class MemberController {
 		}
 		return -1;
 	}
-	
+
 }

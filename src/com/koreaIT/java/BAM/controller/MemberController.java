@@ -17,8 +17,14 @@ public class MemberController extends Controller {
 	}
 	
 	@Override
-	public void doAction(String cmd) {
+	public void doAction(String cmd, String methodName) {
 		this.cmd = cmd;
+		
+		switch(methodName) {
+		case "join":
+			doJoin();
+			break;
+		}
 	}
 
 	public void doJoin() {

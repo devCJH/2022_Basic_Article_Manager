@@ -33,15 +33,15 @@ public class App {
 				break;
 			}
 
-			String[] cmdBits = cmd.split(" "); // article list
+			String[] cmdBits = cmd.split(" ");
 			
 			if(cmdBits.length == 1) {
 				System.out.println("명령어를 확인해주세요");
 				continue;
 			}
 			
-			String controllerName = cmdBits[0]; // article
-			String methodName = cmdBits[1]; // list
+			String controllerName = cmdBits[0];
+			String methodName = cmdBits[1];
 
 			Controller controller = null;
 

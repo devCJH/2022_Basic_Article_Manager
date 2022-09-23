@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.koreaIT.java.BAM.dto.Article;
 import com.koreaIT.java.BAM.dto.Member;
 import com.koreaIT.java.BAM.util.Util;
 
@@ -41,7 +42,6 @@ public class MemberController extends Controller {
 		System.out.printf("로그인 비밀번호 : ");
 		String loginPw = sc.nextLine();
 		
-		// 사용자의 입력 아이디와 일치하는 회원이 우리한테 있나?
 		Member member = getMemberByLoginId(loginId);
 		
 		if(member == null) {
@@ -55,17 +55,7 @@ public class MemberController extends Controller {
 		}
 		
 		loginedMember = member;
-		System.out.println("로그인 성공!");
-	}
-
-	private Member getMemberByLoginId(String loginId) {
-		int index = getMemberIndexByLoginId(loginId);
-		
-		if(index != -1) {
-			return members.get(index);
-		}
-		
-		return null;
+		System.out.printf("로그인 성공! %s님 환영합니다!\n", loginedMember.name);
 	}
 
 	private void doJoin() {
@@ -131,5 +121,22 @@ public class MemberController extends Controller {
 		}
 		return -1;
 	}
+	
+	private Member getMemberByLoginId(String loginId) {
+		int index = getMemberIndexByLoginId(loginId);
+		
+		if(index != -1) {
+			return members.get(index);
+		}
+		
+		return null;
+	}
 
+	public void makeTestData() {
+		System.out.println("테스트를 위한 회원 데이터를 생성합니다");
+		members.add(new Member(1, Util.getNowDateStr(), "test1", "test1", "김철수"));
+		members.add(new Member(2, Util.getNowDateStr(), "test2", "test2", "김영희"));
+		members.add(new Member(3, Util.getNowDateStr(), "test3", "test3", "박영수"));
+	}
+	
 }

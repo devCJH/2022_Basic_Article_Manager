@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.koreaIT.java.BAM.dto.Article;
 import com.koreaIT.java.BAM.dto.Member;
 import com.koreaIT.java.BAM.util.Util;
 
 public class MemberController extends Controller {
 	private List<Member> members;
 	private Scanner sc;
-	private String cmd;
-	private Member loginedMember;
 
 	public MemberController(Scanner sc) {
 		this.members = new ArrayList<>();
@@ -21,7 +18,6 @@ public class MemberController extends Controller {
 
 	@Override
 	public void doAction(String cmd, String methodName) {
-		this.cmd = cmd;
 
 		switch (methodName) {
 		case "join":
@@ -42,10 +38,6 @@ public class MemberController extends Controller {
 		}
 	}
 	
-	private boolean isLogined() {
-		return loginedMember != null;
-	}
-
 	private void doLogout() {
 		if(isLogined() == false) {
 			System.out.println("로그인 상태가 아닙니다");
@@ -136,7 +128,7 @@ public class MemberController extends Controller {
 
 		System.out.printf("%s회원님 환영합니다\n", loginId);
 	}
-
+	
 	private boolean loginIdChk(String loginId) {
 		int index = getMemberIndexByLoginId(loginId);
 

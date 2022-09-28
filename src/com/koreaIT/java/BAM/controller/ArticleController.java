@@ -1,6 +1,5 @@
 package com.koreaIT.java.BAM.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +14,6 @@ public class ArticleController extends Controller {
 	private String cmd;
 
 	public ArticleController(Scanner sc) {
-		this.articles = Container.articleDao.articles;
 		this.sc = sc;
 	}
 
@@ -61,32 +59,18 @@ public class ArticleController extends Controller {
 	}
 
 	private void showList() {
-		if (articles.size() == 0) {
+
+		String searchKeyword = cmd.substring("article list".length()).trim();
+		
+		System.out.println("검색어 : " + searchKeyword);
+		
+		List<Article> forPrintArticles = Container.articleService.getForPrintArticles(searchKeyword);
+		
+		if (forPrintArticles.size() == 0) {
 			System.out.println("게시물이 없습니다");
 			return;
 		}
-
-		List<Article> forPrintArticles = articles;
-
-		String searchKeyword = cmd.substring("article list".length()).trim();
-
-		if (searchKeyword.length() > 0) {
-
-			System.out.println("검색어 : " + searchKeyword);
-
-			forPrintArticles = new ArrayList<>();
-
-			for (Article article : articles) {
-				if (article.title.contains(searchKeyword)) {
-					forPrintArticles.add(article);
-				}
-			}
-			if (forPrintArticles.size() == 0) {
-				System.out.println("검색결과가 없습니다");
-				return;
-			}
-		}
-
+		
 		System.out.println("번호	|	제목	|	날짜			|	작성자	|	조회");
 		for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
 			Article article = forPrintArticles.get(i);
